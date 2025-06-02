@@ -17,6 +17,8 @@ from mcp.types import Tool, TextContent, CallToolRequestParams, ServerCapabiliti
 from .fleep_client import FleepClient
 from .tools.create_conversation import CreateConversationTool
 from .tools.send_message import SendMessageTool
+from .tools.get_conversation_labels import GetConversationLabelsTool
+from .tools.set_conversation_labels import SetConversationLabelsTool
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -31,6 +33,8 @@ fleep_client = FleepClient()
 # Initialize tools
 create_conversation_tool = CreateConversationTool(fleep_client)
 send_message_tool = SendMessageTool(fleep_client)
+get_conversation_labels_tool = GetConversationLabelsTool(fleep_client)
+set_conversation_labels_tool = SetConversationLabelsTool(fleep_client)
 
 
 @server.list_tools()
@@ -39,6 +43,8 @@ async def handle_list_tools() -> List[Tool]:
     return [
         create_conversation_tool.get_tool_definition(),
         send_message_tool.get_tool_definition(),
+        get_conversation_labels_tool.get_tool_definition(),
+        set_conversation_labels_tool.get_tool_definition(),
     ]
 
 
@@ -56,6 +62,12 @@ async def handle_call_tool(
             return [TextContent(type="text", text=str(result))]
         elif name == "send_message":
             result = await send_message_tool.execute(arguments)
+            return [TextContent(type="text", text=str(result))]
+        elif name == "get_conversation_labels":
+            result = await get_conversation_labels_tool.execute(arguments)
+            return [TextContent(type="text", text=str(result))]
+        elif name == "set_conversation_labels":
+            result = await set_conversation_labels_tool.execute(arguments)
             return [TextContent(type="text", text=str(result))]
         else:
             raise ValueError(f"Unknown tool: {name}")

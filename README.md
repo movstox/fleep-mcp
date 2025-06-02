@@ -109,6 +109,8 @@ Once configured, the following tools will be available in your MCP client:
 
 - **create_conversation**: Create new Fleep conversations with specified members and topics
 - **send_message**: Send messages to existing Fleep conversations
+- **get_conversation_labels**: Retrieve labels applied to a Fleep conversation
+- **set_conversation_labels**: Apply labels to a Fleep conversation
 
 ### Troubleshooting
 
@@ -183,6 +185,74 @@ Send a message to an existing Fleep conversation.
 - Error response with details if the operation fails
 
 **Note:** You can get the `conversation_id` from the response of the `create_conversation` tool, or you'll need to implement conversation lookup functionality to find conversations by topic.
+
+### `get_conversation_labels`
+
+Retrieve the current labels applied to a Fleep conversation.
+
+**Parameters:**
+- `conversation_id` (required): The ID of the conversation to get labels from
+
+**Example Usage:**
+```json
+{
+  "conversation_id": "conv-123-456-789"
+}
+```
+
+**Returns:**
+```json
+{
+  "success": true,
+  "conversation_id": "conv-123-456-789",
+  "labels": ["urgent", "project-alpha", "meeting"],
+  "label_ids": ["uuid1", "uuid2", "uuid3"],
+  "topic": "Project Planning Meeting",
+  "label_count": 3,
+  "message": "Found 3 label(s): urgent, project-alpha, meeting"
+}
+```
+
+- Success response with current labels and conversation info
+- Error response with details if the operation fails
+
+### `set_conversation_labels`
+
+Apply labels to a Fleep conversation. This will replace any existing labels.
+
+**Parameters:**
+- `conversation_id` (required): The ID of the conversation to set labels on
+- `labels` (required): Array of label strings to apply to the conversation
+
+**Example Usage:**
+```json
+{
+  "conversation_id": "conv-123-456-789",
+  "labels": ["urgent", "project-alpha", "meeting"]
+}
+```
+
+**Clear all labels:**
+```json
+{
+  "conversation_id": "conv-123-456-789",
+  "labels": []
+}
+```
+
+**Returns:**
+```json
+{
+  "success": true,
+  "conversation_id": "conv-123-456-789",
+  "labels_set": ["urgent", "project-alpha", "meeting"],
+  "label_count": 3,
+  "message": "Successfully set 3 label(s): urgent, project-alpha, meeting"
+}
+```
+
+- Success response with confirmation of labels set
+- Error response with details if the operation fails
 
 ## API Documentation
 

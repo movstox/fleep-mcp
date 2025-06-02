@@ -197,6 +197,47 @@ class FleepClient:
         
         return await self._make_request("POST", f"message/send/{conversation_id}", data)
     
+    async def get_conversation_info(
+        self,
+        conversation_id: str,
+        detail_level: str = "ic_header"
+    ) -> Dict[str, Any]:
+        """
+        Get conversation information including labels.
+        
+        Args:
+            conversation_id: The ID of the conversation
+            detail_level: Level of detail (ic_header, ic_tiny, ic_full)
+            
+        Returns:
+            Dictionary containing the conversation info with labels
+        """
+        data = {"mk_direction": detail_level}
+        
+        return await self._make_request("POST", f"conversation/sync/{conversation_id}", data)
+
+    async def set_conversation_labels(
+        self,
+        conversation_id: str,
+        labels: List[str]
+    ) -> Dict[str, Any]:
+        """
+        Set labels for a conversation in Fleep.
+        
+        Args:
+            conversation_id: The ID of the conversation to label
+            labels: List of label strings to apply
+            
+        Returns:
+            Dictionary containing the conversation sync response
+        """
+        # The Fleep API expects labels as an array in the JSON data
+        data = {}
+        if labels:
+            data["labels"] = labels
+        
+        return await self._make_request("POST", f"conversation/store/{conversation_id}", data)
+    
     async def close(self) -> None:
         """Close the HTTP client."""
         await self._client.aclose()
