@@ -24,8 +24,8 @@ Fleep API Documentation: [https://fleep.io/fleepapi/](https://fleep.io/fleepapi/
     - **Fleep API Endpoint(s)**: `message/send/CONV_ID`
     - **Inputs**: `conversation_id`, `message_content`, `attachments (optional)`
     - **Outputs**: Confirmation of message sent, message details.
-    - [ ] Implement tool logic.
-    - [ ] Add unit tests.
+    - [x] Implement tool logic.
+    - [x] Add unit tests.
 
 ### 2. `list_conversations`
     - **Description**: Retrieve a list of all conversations the authenticated user is part of.

@@ -172,6 +172,30 @@ class FleepClient:
             data["is_autojoin"] = is_autojoin
         
         return await self._make_request("POST", "conversation/create", data)
+
+    async def send_message(
+        self,
+        conversation_id: str,
+        message: str,
+        attachments: Optional[List[str]] = None
+    ) -> Dict[str, Any]:
+        """
+        Send a message to a conversation in Fleep.
+        
+        Args:
+            conversation_id: The ID of the conversation to send the message to
+            message: Message content to send
+            attachments: Optional list of attachment URLs
+            
+        Returns:
+            Dictionary containing the conversation sync response
+        """
+        data = {"message": message}
+        
+        if attachments:
+            data["attachments"] = attachments
+        
+        return await self._make_request("POST", f"message/send/{conversation_id}", data)
     
     async def close(self) -> None:
         """Close the HTTP client."""

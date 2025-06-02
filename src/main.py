@@ -16,6 +16,7 @@ from mcp.types import Tool, TextContent, CallToolRequestParams, ServerCapabiliti
 
 from .fleep_client import FleepClient
 from .tools.create_conversation import CreateConversationTool
+from .tools.send_message import SendMessageTool
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -29,6 +30,7 @@ fleep_client = FleepClient()
 
 # Initialize tools
 create_conversation_tool = CreateConversationTool(fleep_client)
+send_message_tool = SendMessageTool(fleep_client)
 
 
 @server.list_tools()
@@ -36,6 +38,7 @@ async def handle_list_tools() -> List[Tool]:
     """Return the list of available tools."""
     return [
         create_conversation_tool.get_tool_definition(),
+        send_message_tool.get_tool_definition(),
     ]
 
 
@@ -50,6 +53,9 @@ async def handle_call_tool(
     try:
         if name == "create_conversation":
             result = await create_conversation_tool.execute(arguments)
+            return [TextContent(type="text", text=str(result))]
+        elif name == "send_message":
+            result = await send_message_tool.execute(arguments)
             return [TextContent(type="text", text=str(result))]
         else:
             raise ValueError(f"Unknown tool: {name}")

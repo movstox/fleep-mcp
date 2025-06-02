@@ -108,6 +108,7 @@ For other MCP clients that support stdio transport:
 Once configured, the following tools will be available in your MCP client:
 
 - **create_conversation**: Create new Fleep conversations with specified members and topics
+- **send_message**: Send messages to existing Fleep conversations
 
 ### Troubleshooting
 
@@ -147,6 +148,41 @@ Create a new Fleep conversation with specified members and optional topic.
 **Returns:**
 - Success response with conversation details
 - Error response with details if the operation fails
+
+### `send_message`
+
+Send a message to an existing Fleep conversation.
+
+**Parameters:**
+- `conversation_id` (required): The ID of the conversation to send the message to
+- `message` (required): Message content to send
+- `attachments` (optional): List of attachment URLs
+
+**Example Usage:**
+```json
+{
+  "conversation_id": "conv-123-456-789",
+  "message": "Hello everyone! How is the project going?"
+}
+```
+
+**With attachments:**
+```json
+{
+  "conversation_id": "conv-123-456-789",
+  "message": "Please review these documents",
+  "attachments": [
+    "https://example.com/document1.pdf",
+    "https://example.com/image.jpg"
+  ]
+}
+```
+
+**Returns:**
+- Success response with message details and conversation sync data
+- Error response with details if the operation fails
+
+**Note:** You can get the `conversation_id` from the response of the `create_conversation` tool, or you'll need to implement conversation lookup functionality to find conversations by topic.
 
 ## API Documentation
 
