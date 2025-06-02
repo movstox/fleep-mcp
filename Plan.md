@@ -5,17 +5,17 @@ This document outlines the plan for developing an MCP server to interact with th
 Fleep API Documentation: [https://fleep.io/fleepapi/](https://fleep.io/fleepapi/)
 
 ## I. Project Setup and Initialization
-- [ ] Initialize a new project directory for the MCP server.
-- [ ] Set up the basic project structure (e.g., `src`, `tests`, `docs`).
-- [ ] Initialize a version control system (e.g., Git).
-- [ ] Define project dependencies (e.g., HTTP client, MCP SDK if available).
-- [ ] Create a README.md with project description and setup instructions.
+- [x] Initialize a new project directory for the MCP server.
+- [x] Set up the basic project structure (e.g., `src`, `tests`, `docs`).
+- [x] Initialize a version control system (e.g., Git).
+- [x] Define project dependencies (e.g., HTTP client, MCP SDK if available).
+- [x] Create a README.md with project description and setup instructions.
 
 ## II. Authentication
-- [ ] Implement Fleep API authentication (OAuth or token-based).
-- [ ] Securely store and manage API credentials/tokens.
-- [ ] Create helper functions for making authenticated API requests.
-- [ ] Implement token refresh logic if applicable.
+- [x] Implement Fleep API authentication (OAuth or token-based).
+- [x] Securely store and manage API credentials/tokens.
+- [x] Create helper functions for making authenticated API requests.
+- [x] Implement token refresh logic if applicable.
 
 ## III. Core MCP Server Tools (Priority 1 - Essential)
 
@@ -48,8 +48,8 @@ Fleep API Documentation: [https://fleep.io/fleepapi/](https://fleep.io/fleepapi/
     - **Fleep API Endpoint(s)**: `conversation/create`
     - **Inputs**: `topic (optional)`, `member_emails_or_ids`, `is_invite (optional)`, `is_autojoin (optional)`
     - **Outputs**: Newly created conversation object.
-    - [ ] Implement tool logic.
-    - [ ] Add unit tests.
+    - [x] Implement tool logic.
+    - [x] Add unit tests.
 
 ### 5. `search_messages`
     - **Description**: Search for messages across all user's conversations.
